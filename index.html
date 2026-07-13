@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>두근두근 하이스쿨</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- 메인 화면 -->
+  <section id="main-screen" class="screen active">
+
+    <div class="game-window title-window">
+
+      <div class="small-title">PIXEL ROMANCE SIM</div>
+
+      <h1>
+        두근두근<br>
+        <span>하이스쿨</span>
+      </h1>
+
+      <p class="subtitle">
+        네 번의 만남, 하나의 엔딩
+      </p>
+
+      <div class="character-list">
+
+        <div class="character-card bokyung">
+          김보경
+        </div>
+
+        <div class="character-card sumi">
+          성수미
+        </div>
+
+        <div class="character-card jueun">
+          서주은
+        </div>
+
+        <div class="character-card minju">
+          박민주
+        </div>
+
+      </div>
+
+      <div class="main-buttons">
+
+        <button class="pixel-button main-button"
+                onclick="openNameScreen()">
+          게임 시작
+        </button>
+
+        <button class="pixel-button"
+                onclick="openModal('help-modal')">
+          게임 설명
+        </button>
+
+        <button class="pixel-button"
+                onclick="openModal('setting-modal')">
+          설정
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 닉네임 입력 -->
+  <section id="name-screen" class="screen">
+
+    <div class="game-window name-window">
+
+      <div class="window-bar">
+        전학생 등록
+      </div>
+
+      <div class="heart-icon">
+        ♡ ✦ ♡
+      </div>
+
+      <label for="nickname">
+        게임에서 사용할 닉네임
+      </label>
+
+      <input
+        id="nickname"
+        type="text"
+        maxlength="10"
+        placeholder="닉네임 입력"
+        autocomplete="off"
+      >
+
+      <p class="input-description">
+        1~10글자로 입력해 주세요.
+      </p>
+
+      <div class="button-row">
+
+        <button class="pixel-button"
+                onclick="showScreen('main-screen')">
+          뒤로
+        </button>
+
+        <button class="pixel-button main-button"
+                onclick="startGame()">
+          입학하기
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 실제 게임 화면 -->
+  <section id="game-screen" class="screen">
+
+    <header class="game-header">
+
+      <div>
+        PLAYER
+        <span id="player-name">주인공</span>
+      </div>
+
+      <div class="day-text">
+        DAY
+        <span id="day-number">1</span>
+      </div>
+
+      <button class="menu-button"
+              onclick="openModal('game-menu-modal')">
+        ☰
+      </button>
+
+    </header>
+
+
+    <main class="scene">
+
+      <div id="background"
+           class="background school-background">
+      </div>
+
+
+      <div class="character-stage">
+
+        <div id="character-area"
+             class="character-area hidden">
+
+          <img id="character-image" alt="캐릭터">
+
+          <div id="character-placeholder"
+               class="character-placeholder">
+            ?
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="dialogue-box">
+
+        <div id="speaker-name"
+             class="speaker-name">
+          안내
+        </div>
+
+        <p id="dialogue-text">
+          이야기를 불러오는 중...
+        </p>
+
+        <div id="choice-container"
+             class="choice-container">
+        </div>
+
+        <button id="next-button"
+                class="next-button"
+                onclick="nextScene()">
+          NEXT ▶
+        </button>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- 엔딩 화면 -->
+  <section id="ending-screen" class="screen">
+
+    <div class="game-window ending-window">
+
+      <div class="small-title">
+        ENDING
+      </div>
+
+      <h2 id="ending-title">
+        엔딩
+      </h2>
+
+      <div id="ending-icon"
+           class="ending-icon">
+        ♡
+      </div>
+
+      <p id="ending-text"></p>
+
+
+      <div class="score-panel">
+
+        <h3>최종 공략 수치</h3>
+
+        <div id="score-list"></div>
+
+      </div>
+
+
+      <div class="button-row">
+
+        <button class="pixel-button"
+                onclick="showScreen('main-screen')">
+          메인 화면
+        </button>
+
+        <button class="pixel-button main-button"
+                onclick="openNameScreen()">
+          다시 시작
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 설명 창 -->
+  <div id="help-modal" class="modal">
+
+    <div class="modal-content">
+
+      <button class="close-button"
+              onclick="closeModal()">
+        ×
+      </button>
+
+      <h2>게임 설명</h2>
+
+      <p>
+        학교생활 중 만나는 네 명의 캐릭터와 대화하고
+        상황에 맞는 선택지를 고르는 게임입니다.
+      </p>
+
+      <p>
+        선택에 따라 각 캐릭터의 공략 수치가 달라지며,
+        마지막에 가장 높은 공략 수치를 가진 캐릭터의
+        엔딩이 열립니다.
+      </p>
+
+      <div class="help-character-list">
+
+        <div>
+          <strong>김보경</strong><br>
+          활발하고 솔직한 성격
+        </div>
+
+        <div>
+          <strong>성수미</strong><br>
+          차분하고 세심한 성격
+        </div>
+
+        <div>
+          <strong>서주은</strong><br>
+          장난기 많고 친근한 성격
+        </div>
+
+        <div>
+          <strong>박민주</strong><br>
+          무심한 듯 다정한 성격
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- 설정 창 -->
+  <div id="setting-modal" class="modal">
+
+    <div class="modal-content">
+
+      <button class="close-button"
+              onclick="closeModal()">
+        ×
+      </button>
+
+      <h2>설정</h2>
+
+      <label class="setting-item">
+
+        <span>배경 반짝임</span>
+
+        <input
+          id="sparkle-setting"
+          type="checkbox"
+          checked
+          onchange="changeSparkle()"
+        >
+
+      </label>
+
+
+      <label class="setting-item">
+
+        <span>텍스트 속도</span>
+
+        <select id="text-speed">
+
+          <option value="15">
+            빠르게
+          </option>
+
+          <option value="30" selected>
+            보통
+          </option>
+
+          <option value="50">
+            천천히
+          </option>
+
+        </select>
+
+      </label>
+
+
+      <button class="pixel-button reset-button"
+              onclick="resetSave()">
+        저장 데이터 초기화
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- 게임 메뉴 -->
+  <div id="game-menu-modal" class="modal">
+
+    <div class="modal-content game-menu-content">
+
+      <button class="close-button"
+              onclick="closeModal()">
+        ×
+      </button>
+
+      <h2>게임 메뉴</h2>
+
+      <button class="pixel-button"
+              onclick="saveGame()">
+        저장하기
+      </button>
+
+      <button class="pixel-button"
+              onclick="loadGame()">
+        불러오기
+      </button>
+
+      <button class="pixel-button"
+              onclick="goMain()">
+        메인 화면
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="toast" class="toast"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
